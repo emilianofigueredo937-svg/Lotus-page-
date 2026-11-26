@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08070b">
+  <meta name="description" content="Lotus optimiza tu PC para jugar: menos latencia, más control y monitoreo en tiempo real.">
+  <title>Lotus — Rendimiento sin límites</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08070b;
+      --panel: #121018;
+      --panel-raised: #181522;
+      --line: rgba(255,255,255,.085);
+      --text: #f7f4fb;
+      --muted: #9c97a8;
+      --pink: #ff4d94;
+      --violet: #9d4edd;
+      --magenta: #e036ff;
+      --green: #6ee7a8;
+      --font: Inter, "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: -10% -15% auto;
+      height: 800px;
+      content: "";
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 12%, rgba(157,78,221,.15), transparent 49%),
+                  radial-gradient(ellipse at 76% 32%, rgba(224,54,255,.08), transparent 38%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .nav-shell { position: sticky; z-index: 20; top: 0; border-bottom: 1px solid rgba(255,255,255,.055); background: rgba(8,7,11,.78); backdrop-filter: blur(18px); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 750; letter-spacing: -.8px; }
+    .brand-mark { width: 31px; height: 31px; filter: drop-shadow(0 0 11px rgba(224,54,255,.5)); }
+    .nav-links { display: flex; align-items: center; gap: 31px; color: #b4aebe; font-size: 13px; }
+    .nav-links a, .footer-links a { transition: color .2s ease; }
+    .nav-links a:hover, .footer-links a:hover { color: white; }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    .profile { display: flex; align-items: center; gap: 9px; color: #d7d2df; font-size: 12px; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; background: linear-gradient(140deg, #432852, #211827); color: #ffc1e1; font-weight: 700; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 0 18px; border: 1px solid transparent; border-radius: 10px; background: linear-gradient(110deg, #da38f3, #a23fe1 58%, #fb4d97); color: white; font-size: 13px; font-weight: 700; box-shadow: 0 8px 26px rgba(180,55,221,.18); transition: transform .2s, box-shadow .2s; }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(180,55,221,.34); }
+    .button svg { width: 16px; height: 16px; }
+    .button.secondary { border-color: var(--line); background: rgba(255,255,255,.035); box-shadow: none; }
+    .button.secondary:hover { border-color: rgba(224,54,255,.42); }
+    .nav-cta { min-height: 39px; padding-inline: 15px; font-size: 12px; }
+    .hero { position: relative; display: grid; grid-template-columns: 1fr .95fr; align-items: center; gap: 44px; padding-top: 82px; padding-bottom: 88px; }
+    .hero::after { position: absolute; z-index: -1; top: 12%; right: 3%; width: 410px; height: 410px; border-radius: 50%; background: rgba(160,49,217,.12); filter: blur(100px); content: ""; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid rgba(224,54,255,.2); border-radius: 100px; background: rgba(157,78,221,.08); color: #deb5ff; font-size: 11px; font-weight: 650; letter-spacing: .45px; }
+    .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 11px var(--green); }
+    h1 { max-width: 620px; margin: 23px 0 18px; font-size: clamp(42px, 5.3vw, 66px); line-height: 1.04; letter-spacing: -3.4px; font-weight: 760; }
+    .gradient-text { background: linear-gradient(100deg, #f8eaff 0%, #df8cff 48%, #ff74b1 100%); background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-copy { max-width: 510px; margin: 0; color: #a9a3b2; font-size: 15px; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 29px; }
+    .trust-row { display: flex; align-items: center; gap: 11px; margin-top: 25px; color: #827d8d; font-size: 11px; }
+    .trust-icons { display: flex; }
+    .trust-icons span { display: grid; width: 24px; height: 24px; margin-right: -6px; place-items: center; border: 2px solid var(--bg); border-radius: 50%; background: #282131; color: #d3b5ea; font-size: 9px; }
+    .trust-row strong { color: #ded8e5; font-weight: 650; }
+    .hero-visual { position: relative; min-width: 0; }
+    .float-chip { position: absolute; z-index: 2; display: flex; align-items: center; gap: 9px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(24,21,34,.91); box-shadow: 0 12px 40px rgba(0,0,0,.32); backdrop-filter: blur(12px); font-size: 11px; }
+    .float-chip.top { top: -21px; right: -14px; }
+    .float-chip.bottom { bottom: 20px; left: -24px; }
+    .chip-icon { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 8px; background: rgba(224,54,255,.14); color: #e9a1ff; }
+    .chip-icon svg { width: 15px; height: 15px; }
+    .chip-text span { display: block; color: var(--muted); font-size: 9px; }
+    .chip-text strong { font-variant-numeric: tabular-nums; }
+    .dashboard { overflow: hidden; border: 1px solid rgba(255,255,255,.105); border-radius: 16px; background: linear-gradient(145deg, rgba(26,23,36,.98), rgba(14,12,19,.98)); box-shadow: 0 34px 100px rgba(0,0,0,.48), 0 0 70px rgba(157,78,221,.09); transform: perspective(1200px) rotateY(-3deg) rotateX(1deg); }
+    .dash-top { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+    .dash-brand { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 720; }
+    .dash-brand .brand-mark { width: 20px; height: 20px; }
+    .dash-status { display: flex; align-items: center; gap: 6px; color: #a59ead; font-size: 9px; }
+    .dash-status i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+    .dash-content { display: grid; grid-template-columns: 1.05fr .95fr; gap: 11px; padding: 13px; }
+    .dash-card { min-width: 0; padding: 13px; border: 1px solid rgba(255,255,255,.065); border-radius: 11px; background: rgba(255,255,255,.024); }
+    .dash-card h3 { margin: 0; font-size: 10px; font-weight: 650; }
+    .dash-card .sub { margin-top: 2px; color: #777181; font-size: 8px; }
+    .score-row { display: flex; align-items: center; justify-content: space-between; margin-top: 11px; }
+    .score { font-size: 25px; line-height: 1; letter-spacing: -1px; font-weight: 760; font-variant-numeric: tabular-nums; }
+    .score small { color: #928b9b; font-size: 9px; font-weight: 500; letter-spacing: 0; }
+    .status-pill { padding: 4px 7px; border: 1px solid rgba(110,231,168,.14); border-radius: 30px; background: rgba(110,231,168,.08); color: #80e5ad; font-size: 8px; }
+    .chart-tabs { display: flex; gap: 5px; margin-top: 11px; }
+    .chart-tab { padding: 4px 8px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #807a89; font-size: 8px; cursor: pointer; }
+    .chart-tab.active { border-color: rgba(224,54,255,.2); background: rgba(224,54,255,.1); color: #e9a1ff; }
+    .chart { display: flex; align-items: end; gap: 5px; height: 63px; margin-top: 7px; padding: 5px 1px 0; border-bottom: 1px solid rgba(255,255,255,.07); background: repeating-linear-gradient(to bottom, transparent 0, transparent 20px, rgba(255,255,255,.035) 21px); }
+    .chart span { flex: 1; min-height: 8px; height: var(--h); border-radius: 3px 3px 0 0; background: linear-gradient(0deg, rgba(157,78,221,.3), #df65ff); transition: height .35s ease, background .2s; }
+    .chart[data-metric="RAM"] span { background: linear-gradient(0deg, rgba(255,77,148,.3), #ff78ad); }
+    .chart[data-metric="Temp"] span { background: linear-gradient(0deg, rgba(255,163,88,.3), #ffab67); }
+    .chart-foot { display: flex; justify-content: space-between; margin-top: 6px; color: #777181; font-size: 8px; }
+    .toggle-list { display: grid; gap: 10px; margin-top: 12px; }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #c4bdcb; font-size: 9px; }
+    .switch { position: relative; width: 27px; height: 15px; flex: 0 0 auto; padding: 0; border: 0; border-radius: 20px; background: #393441; cursor: pointer; transition: background .2s; }
+    .switch::after { position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: #aaa4b0; content: ""; transition: transform .2s, background .2s; }
+    .switch[aria-checked="true"] { background: linear-gradient(90deg, #9d4edd, #e036ff); }
+    .switch[aria-checked="true"]::after { transform: translateX(12px); background: white; }
+    .resource-card { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.4fr; align-items: center; gap: 13px; }
+    .ring-area { display: flex; align-items: center; gap: 11px; }
+    .ring { display: grid; width: 57px; height: 57px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: conic-gradient(#e036ff 0 91%, #302737 91%); position: relative; }
+    .ring::before { position: absolute; width: 43px; height: 43px; border-radius: 50%; background: #191521; content: ""; }
+    .ring strong { z-index: 1; font-size: 11px; font-variant-numeric: tabular-nums; }
+    .ring-copy span { display: block; color: #8d8797; font-size: 8px; }
+    .ring-copy strong { font-size: 10px; }
+    .meters { display: grid; gap: 7px; }
+    .meter-line { display: grid; grid-template-columns: 53px 1fr 27px; align-items: center; gap: 7px; color: #a29baa; font-size: 8px; }
+    .meter { height: 4px; overflow: hidden; border-radius: 6px; background: #302b37; }
+    .meter i { display: block; width: var(--w); height: 100%; border-radius: inherit; background: linear-gradient(90deg, #994be2, #ed65c4); }
+    .games-card { grid-column: 1 / -1; }
+    .game-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 10px; }
+    .game { display: flex; min-width: 0; align-items: center; gap: 7px; padding: 7px; border: 1px solid rgba(255,255,255,.055); border-radius: 7px; background: rgba(255,255,255,.02); }
+    .game-art { display: grid; width: 25px; height: 25px; flex: 0 0 auto; place-items: center; border-radius: 6px; background: linear-gradient(145deg, #7d305d, #301f4c); color: #ffd3ed; font-size: 9px; font-weight: 700; }
+    .game:nth-child(2) .game-art { background: linear-gradient(145deg, #3e7380, #263248); }
+    .game:nth-child(3) .game-art { background: linear-gradient(145deg, #826131, #382a35); }
+    .game-name { overflow: hidden; color: #d5ceda; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+    .game-meta { color: #7e7887; font-size: 7px; }
+    .section { padding: 50px 0 76px; }
+    .section-heading { max-width: 640px; margin: 0 auto 34px; text-align: center; }
+    .section-heading .eyebrow { margin-bottom: 14px; }
+    h2 { margin: 0; font-size: clamp(29px, 4vw, 42px); line-height: 1.14; letter-spacing: -1.8px; }
+    .section-heading p { max-width: 510px; margin: 12px auto 0; color: var(--muted); font-size: 14px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .feature { min-height: 208px; padding: 21px 19px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(150deg, rgba(24,21,34,.82), rgba(16,14,21,.78)); transition: transform .22s, border-color .22s; }
+    .feature:hover { transform: translateY(-4px); border-color: rgba(224,54,255,.3); }
+    .feature-icon { display: grid; width: 39px; height: 39px; margin-bottom: 20px; place-items: center; border: 1px solid rgba(224,54,255,.17); border-radius: 11px; background: rgba(157,78,221,.12); color: #e3a1ff; }
+    .feature-icon svg { width: 19px; height: 19px; }
+    .feature h3 { margin: 0 0 7px; font-size: 14px; }
+    .feature p { margin: 0; color: #928b9b; font-size: 12px; line-height: 1.7; }
+    .download { padding: 0 0 78px; }
+    .download-card { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 35px 40px; border: 1px solid rgba(224,54,255,.19); border-radius: 17px; background: radial-gradient(ellipse at 82% 50%, rgba(157,78,221,.16), transparent 42%), linear-gradient(110deg, #17121d, #111018); }
+    .download-card::after { position: absolute; top: -100px; right: 17%; width: 200px; height: 200px; border-radius: 50%; background: rgba(224,54,255,.13); filter: blur(65px); content: ""; }
+    .download-card h2 { font-size: clamp(25px, 3vw, 34px); }
+    .download-card p { margin: 9px 0 0; color: var(--muted); font-size: 13px; }
+    .download-card .button { z-index: 1; flex: 0 0 auto; }
+    footer { border-top: 1px solid rgba(255,255,255,.07); }
+    .footer-inner { display: flex; min-height: 94px; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-brand { color: #bbb4c3; font-size: 11px; }
+    .footer-brand .brand { margin-bottom: 3px; color: white; font-size: 17px; }
+    .footer-brand p { margin: 0; }
+    .footer-links { display: flex; gap: 22px; color: #9d97a7; font-size: 11px; }
+    .copyright { color: #716b79; font-size: 10px; text-align: right; }
+    .toast { position: fixed; z-index: 30; right: 22px; bottom: 22px; padding: 12px 16px; border: 1px solid rgba(110,231,168,.2); border-radius: 10px; background: #181522; color: #c7f5d9; font-size: 12px; box-shadow: 0 12px 35px #0008; opacity: 0; transform: translateY(10px); pointer-events: none; transition: .25s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 940px) {
+      .hero { grid-template-columns: 1fr 1fr; gap: 26px; padding-top: 65px; }
+      .nav-links { gap: 18px; }
+      .profile { display: none; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard { transform: none; }
+    }
+    @media (max-width: 700px) {
+      .wrap { width: min(100% - 34px, 540px); }
+      .nav { min-height: 66px; }
+      .nav-links { display: none; }
+      .nav-right { margin-left: auto; }
+      .hero { grid-template-columns: 1fr; gap: 54px; padding-top: 60px; padding-bottom: 64px; }
+      h1 { font-size: clamp(43px, 12vw, 59px); letter-spacing: -2.6px; }
+      .hero-copy { font-size: 14px; }
+      .hero-visual { width: min(100%, 500px); margin-inline: auto; }
+      .float-chip.top { right: -7px; }
+      .float-chip.bottom { left: -7px; }
+      .section { padding-top: 33px; }
+      .section-heading { margin-bottom: 25px; }
+      .download-card { align-items: flex-start; flex-direction: column; padding: 28px 23px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; padding-block: 24px; }
+      .copyright { text-align: left; }
+    }
+    @media (max-width: 420px) {
+      .nav-cta { min-height: 36px; padding-inline: 11px; font-size: 11px; }
+      .brand { font-size: 19px; }
+      .dash-content { gap: 8px; padding: 9px; }
+      .dash-card { padding: 10px; }
+      .game-list { grid-template-columns: 1fr; }
+      .game { padding: 5px 7px; }
+      .feature-grid { gap: 9px; }
+      .feature { min-height: 190px; padding: 16px 13px; }
+      .feature-icon { margin-bottom: 15px; }
+      .footer-links { flex-wrap: wrap; gap: 15px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="lotus-icon" viewBox="0 0 40 40">
+      <path d="M20 31.5c-7.5 0-13.5-3.1-16-8.3 5.2-.5 9.2 1.1 12.1 4.1-1.6-7.1-.1-13.8 3.9-19 4 5.2 5.5 11.9 3.9 19 2.9-3 6.9-4.6 12.1-4.1-2.5 5.2-8.5 8.3-16 8.3Z" fill="none" stroke="url(#lotus-gradient)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 33.5h20" stroke="#E8A3FF" stroke-width="2" stroke-linecap="round"/>
+      <defs><linearGradient id="lotus-gradient" x1="4" y1="8" x2="37" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#E036FF"/><stop offset="1" stop-color="#FF4D94"/></linearGradient></defs>
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 17v3h14v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-gauge" viewBox="0 0 24 24"><path d="M4.5 18a9 9 0 1 1 15 0M12 13l4-4M7 18h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-memory" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 10h2v4H8zm6 0h2v4h-2zM7 3v3m5-3v3m5-3v3M7 18v3m5-3v3m5-3v3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="icon-game" viewBox="0 0 24 24"><path d="M7 9h10a4 4 0 0 1 3.8 5l-.8 2.8a2 2 0 0 1-3.2 1l-2.1-1.6H9.3l-2.1 1.6a2 2 0 0 1-3.2-1L3.2 14A4 4 0 0 1 7 9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 12v4m-2-2h4m6-1h.01M18 15h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.5-2.9 8-7 10-4.1-2-7-5.5-7-10V6l7-3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <header class="nav-shell">
+    <nav class="nav wrap" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Lotus, inicio"><svg class="brand-mark"><use href="#lotus-icon"/></svg>Lotus</a>
+      <div class="nav-links">
+        <a href="#inicio">Inicio</a><a href="#tweaks">Tweaks</a><a href="#rendimiento">Rendimiento</a><a href="#descargar">Descargar</a>
+      </div>
+      <div class="nav-right">
+        <div class="profile"><span class="avatar">L</span><span>Lucho</span></div>
+        <a class="button nav-cta" href="#descargar">Probar dashboard <svg><use href="#icon-arrow"/></svg></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap" id="inicio">
+      <div class="hero-content">
+        <div class="eyebrow"><span class="dot"></span> Tu PC, en su mejor versión</div>
+        <h1>Más rendimiento.<br><span class="gradient-text">Menos input lag.</span></h1>
+        <p class="hero-copy">Saca más de cada partida. Lotus aplica ajustes pensados para jugar, libera recursos y te muestra lo que pasa con tu PC en tiempo real.</p>
+        <div class="hero-actions">
+          <a class="button" href="#descargar">Descargar para Windows <svg><use href="#icon-download"/></svg></a>
+          <a class="button secondary" href="#tweaks">Explorar tweaks <svg><use href="#icon-arrow"/></svg></a>
+        </div>
+        <div class="trust-row"><div class="trust-icons"><span>✓</span><span>PC</span><span>⚡</span></div><span><strong>Ligero por diseño.</strong> Tú tienes el control.</span></div>
+      </div>
+
+      <div class="hero-visual" id="rendimiento">
+        <div class="float-chip top"><span class="chip-icon"><svg><use href="#icon-gauge"/></svg></span><span class="chip-text"><span>FPS promedio</span><strong id="floating-fps">184 FPS</strong></span></div>
+        <div class="dashboard" aria-label="Vista previa interactiva del dashboard Lotus">
+          <div class="dash-top">
+            <div class="dash-brand"><svg class="brand-mark"><use href="#lotus-icon"/></svg> Lotus <span style="color:#777181;font-weight:450">/ Dashboard</span></div>
+            <div class="dash-status"><i></i> Vista interactiva</div>
+          </div>
+          <div class="dash-content">
+            <div class="dash-card">
+              <h3>Rendimiento del juego</h3><div class="sub">Datos de demostración · CS2</div>
+              <div class="score-row"><div class="score" id="fps-value">184 <small>FPS prom.</small></div><span class="status-pill" id="efficiency">91% optimizado</span></div>
+              <div class="chart-tabs" role="tablist" aria-label="Métrica del gráfico">
+                <button class="chart-tab active" type="button" role="tab" aria-selected="true" data-metric="FPS">FPS</button>
+                <button class="chart-tab" type="button" role="tab" aria-selected="false" data-metric="RAM">RAM</button>
+                <button class="chart-tab" type="button" role="tab" aria-selected="false" data-metric="Temp">Temp</button>
+              </div>
+              <div class="chart" id="chart" data-metric="FPS" aria-label="Gráfico de rendimiento" role="img">
+                <span style="--h:48%"></span><span style="--h:62%"></span><span style="--h:55%"></span><span style="--h:73%"></span><span style="--h:66%"></span><span style="--h:85%"></span><span style="--h:70%"></span><span style="--h:92%"></span><span style="--h:78%"></span><span style="--h:96%"></span><span style="--h:83%"></span><span style="--h:100%"></span>
+              </div>
+              <div class="chart-foot"><span id="chart-low">142 FPS</span><span>Últimos 60 min</span><span id="chart-high">184 FPS</span></div>
+            </div>
+            <div class="dash-card">
+              <h3>Tweaks activos <span id="active-count" style="float:right;color:#9e97a7;font-weight:500">4/5</span></h3>
+              <div class="toggle-list">
+                <div class="toggle-row"><span>Liberar RAM (Auto)</span><button class="switch" type="button" role="switch" aria-checked="true" aria-label="Liberar RAM automático"></button></div>
+                <div class="toggle-row"><span>Optimizar CPU</span><button class="switch" type="button" role="switch" aria-checked="true" aria-label="Optimizar CPU"></button></div>
+                <div class="toggle-row"><span>Priorizar juegos</span><button class="switch" type="button" role="switch" aria-checked="true" aria-label="Priorizar juegos"></button></div>
+                <div class="toggle-row"><span>Desactivar telemetría</span><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Desactivar telemetría"></button></div>
+                <div class="toggle-row"><span>Ajustar latencia de red</span><button class="switch" type="button" role="switch" aria-checked="true" aria-label="Ajustar latencia de red"></button></div>
+              </div>
+            </div>
+            <div class="dash-card resource-card">
+              <div class="ring-area">
+                <div class="ring" id="ring"><strong id="ring-score">91%</strong></div>
+                <div class="ring-copy"><strong>Optimización</strong><span>Estado del sistema</span></div>
+              </div>
+              <div class="meters">
+                <div class="meter-line"><span>CPU Temp</span><div class="meter"><i style="--w:48%"></i></div><span>58°</span></div>
+                <div class="meter-line"><span>GPU Temp</span><div class="meter"><i style="--w:64%"></i></div><span>67°</span></div>
+                <div class="meter-line"><span>Memoria RAM</span><div class="meter"><i style="--w:42%"></i></div><span>6.7 GB</span></div>
+              </div>
+            </div>
+            <div class="dash-card games-card">
+              <h3>Juegos optimizados <span style="float:right;color:#96909e;font-size:8px;font-weight:500">Ver todos →</span></h3>
+              <div class="game-list">
+                <div class="game"><span class="game-art">C</span><div><div class="game-name">Cyberpunk 2077</div><div class="game-meta">Optimizado · +12% FPS</div></div></div>
+                <div class="game"><span class="game-art">CS</span><div><div class="game-name">Counter-Strike 2</div><div class="game-meta">Optimizado · +18% FPS</div></div></div>
+                <div class="game"><span class="game-art">WZ</span><div><div class="game-name">Warzone</div><div class="game-meta">Optimizado · +9% FPS</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-chip bottom"><span class="chip-icon" style="color:#83e9b0;background:rgba(110,231,168,.1)">↗</span><span class="chip-text"><span>Latencia de red</span><strong>12 ms <span style="color:#7ee3a8;font-size:9px">−8 ms</span></strong></span></div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="tweaks">
+      <div class="section-heading">
+        <div class="eyebrow">Todo lo que necesitas, nada que no</div>
+        <h2>Tu ventaja empieza <span class="gradient-text">antes de jugar.</span></h2>
+        <p>Ajustes claros y herramientas útiles para que dediques menos tiempo configurando y más tiempo en la partida.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-icon"><svg><use href="#icon-gauge"/></svg></div>
+          <h3>Menos latencia</h3>
+          <p>Reduce procesos y actividad en segundo plano para una respuesta más rápida y consistente.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon"><svg><use href="#icon-memory"/></svg></div>
+          <h3>RAM bajo control</h3>
+          <p>Recupera memoria cuando importa y consulta el consumo sin salir de tu sesión.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon"><svg><use href="#icon-game"/></svg></div>
+          <h3>Perfiles por juego</h3>
+          <p>Prepara ajustes para tus juegos favoritos y tenlos listos cuando los inicies.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon"><svg><use href="#icon-shield"/></svg></div>
+          <h3>Control sin bloatware</h3>
+          <p>Interfaz ligera y directa. Tú decides qué activar y puedes cambiarlo cuando quieras.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="download wrap" id="descargar">
+      <div class="download-card">
+        <div><h2>Listo para jugar <span class="gradient-text">en tu mejor nivel?</span></h2><p>Lotus está hecho para que tu PC trabaje contigo, no en tu contra.</p></div>
+        <a class="button" href="mailto:lucho@gmail.com?subject=Quiero%20probar%20Lotus"><svg><use href="#icon-download"/></svg> Quiero probar Lotus</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner wrap">
+      <div class="footer-brand"><a class="brand" href="#inicio"><svg class="brand-mark"><use href="#lotus-icon"/></svg>Lotus</a><p>Hecho con intención por <a href="mailto:lucho@gmail.com">Lucho</a> · lucho@gmail.com</p></div>
+      <div class="footer-links"><a href="#inicio">Inicio</a><a href="#tweaks">Características</a><a href="#descargar">Contacto</a></div>
+      <div class="copyright">Herramienta de optimización para PC.<br>Los resultados pueden variar según tu equipo.</div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    (() => {
+      const switches = [...document.querySelectorAll(".switch")];
+      const count = document.getElementById("active-count");
+      const efficiency = document.getElementById("efficiency");
+      const ring = document.getElementById("ring");
+      const ringScore = document.getElementById("ring-score");
+      const toast = document.getElementById("toast");
+      let toastTimer;
+
+      function updateOptimization(changedSwitch) {
+        const active = switches.filter((item) => item.getAttribute("aria-checked") === "true").length;
+        const percent = 55 + active * 9;
+        count.textContent = `${active}/${switches.length}`;
+        efficiency.textContent = `${percent}% optimizado`;
+        ringScore.textContent = `${percent}%`;
+        ring.style.background = `conic-gradient(#e036ff 0 ${percent}%, #302737 ${percent}% 100%)`;
+        if (changedSwitch) showToast(`${changedSwitch.getAttribute("aria-label")}: ${changedSwitch.getAttribute("aria-checked") === "true" ? "activado" : "desactivado"} · Vista de demostración`);
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+      }
+
+      switches.forEach((item) => item.addEventListener("click", () => {
+        item.setAttribute("aria-checked", item.getAttribute("aria-checked") !== "true" ? "true" : "false");
+        updateOptimization(item);
+      }));
+
+      const chart = document.getElementById("chart");
+      const tabs = [...document.querySelectorAll(".chart-tab")];
+      const chartStats = {
+        FPS: { low: "142 FPS", high: "184 FPS", heights: [48,62,55,73,66,85,70,92,78,96,83,100] },
+        RAM: { low: "5.2 GB", high: "6.7 GB", heights: [64,70,61,73,69,82,74,78,71,84,76,80] },
+        Temp: { low: "54 °C", high: "67 °C", heights: [42,48,52,47,59,61,55,68,64,72,67,75] }
+      };
+      tabs.forEach((tab) => tab.addEventListener("click", () => {
+        tabs.forEach((item) => {
+          const selected = item === tab;
+          item.classList.toggle("active", selected);
+          item.setAttribute("aria-selected", String(selected));
+        });
+        const metric = tab.dataset.metric;
+        const stats = chartStats[metric];
+        chart.dataset.metric = metric;
+        chart.querySelectorAll("span").forEach((bar, index) => bar.style.setProperty("--h", `${stats.heights[index]}%`));
+        document.getElementById("chart-low").textContent = stats.low;
+        document.getElementById("chart-high").textContent = stats.high;
+        if (metric === "FPS") {
+          document.getElementById("fps-value").innerHTML = '184 <small>FPS prom.</small>';
+          document.getElementById("floating-fps").textContent = "184 FPS";
+        } else if (metric === "RAM") {
+          document.getElementById("fps-value").innerHTML = '6.7 <small>GB RAM</small>';
+          document.getElementById("floating-fps").textContent = "6.7 GB RAM";
+        } else {
+          document.getElementById("fps-value").innerHTML = '67° <small>GPU temp.</small>';
+          document.getElementById("floating-fps").textContent = "67° GPU";
+        }
+      }));
+    })();
+  </script>
+</body>
+</html>
