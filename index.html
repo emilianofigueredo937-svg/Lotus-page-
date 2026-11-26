@@ -186,6 +186,7 @@
       transition: transform .12s ease-out, border-color .25s, box-shadow .25s;
     }
     .game-card:hover { border-color: rgba(224,54,255,.48); box-shadow: 0 26px 70px rgba(0,0,0,.38), 0 16px 40px rgba(157,78,221,.12); }
+    .game-card.selected { border-color: rgba(224,54,255,.76); box-shadow: 0 0 0 1px rgba(224,54,255,.25), 0 18px 55px rgba(157,78,221,.18); }
     .game-card::before {
       position: absolute;
       z-index: 2;
@@ -214,9 +215,67 @@
     .profile-stat { min-width: 72px; text-align: right; }
     .profile-stat span { display: block; color: #7f7889; font-size: 8px; text-transform: uppercase; letter-spacing: .6px; }
     .profile-stat strong { font-size: 14px; font-variant-numeric: tabular-nums; }
+    .app-preview { padding: 48px 0 74px; }
+    .app-window { display: grid; grid-template-columns: 196px minmax(0, 1fr); min-height: 570px; overflow: hidden; border: 1px solid rgba(255,255,255,.11); border-radius: 17px; background: #100e15; box-shadow: 0 28px 90px rgba(0,0,0,.4), 0 0 70px rgba(157,78,221,.07); }
+    .app-sidebar { display: flex; flex-direction: column; padding: 20px 13px; border-right: 1px solid var(--line); background: rgba(255,255,255,.018); }
+    .app-side-brand { display: flex; align-items: center; gap: 9px; margin: 0 0 26px 8px; font-size: 16px; font-weight: 720; }
+    .app-side-brand .brand-mark { width: 25px; height: 25px; }
+    .app-side-label { margin: 0 8px 8px; color: #716b79; font-size: 9px; font-weight: 650; letter-spacing: .9px; text-transform: uppercase; }
+    .app-nav { display: grid; gap: 5px; }
+    .app-nav button { display: flex; align-items: center; gap: 10px; min-height: 39px; padding: 0 10px; border: 1px solid transparent; border-radius: 8px; background: transparent; color: #a7a0af; text-align: left; font-size: 11px; cursor: pointer; transition: .2s; }
+    .app-nav button:hover { background: rgba(255,255,255,.04); color: white; }
+    .app-nav button.active { border-color: rgba(224,54,255,.13); background: rgba(157,78,221,.12); color: #f0d7ff; }
+    .app-nav-icon { display: grid; width: 19px; place-items: center; color: #c58be4; font-size: 14px; }
+    .app-side-bottom { margin-top: auto; padding: 12px 9px 0; border-top: 1px solid var(--line); color: #8d8797; font-size: 9px; }
+    .app-side-user { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: #ddd6e4; font-size: 10px; }
+    .app-side-user .avatar { width: 27px; height: 27px; font-size: 10px; }
+    .app-main { min-width: 0; padding: 21px 23px 25px; }
+    .app-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+    .app-topbar h3 { margin: 0; font-size: 16px; letter-spacing: -.3px; }
+    .app-topbar p { margin: 3px 0 0; color: #85808e; font-size: 10px; }
+    .app-demo-tag { padding: 6px 9px; border: 1px solid rgba(110,231,168,.14); border-radius: 20px; background: rgba(110,231,168,.06); color: #8fe6b1; font-size: 9px; white-space: nowrap; }
+    .app-view { display: none; animation: rise-in .28s ease both; }
+    .app-view.active { display: block; }
+    .app-welcome { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 15px; padding: 17px 19px; border: 1px solid rgba(224,54,255,.14); border-radius: 12px; background: radial-gradient(ellipse at 86% 20%, rgba(224,54,255,.14), transparent 42%), linear-gradient(110deg, #1a1422, #15121c); }
+    .app-welcome h4 { margin: 0 0 5px; font-size: 15px; }
+    .app-welcome p { margin: 0; color: #9d96a6; font-size: 10px; }
+    .app-welcome .button { min-height: 36px; padding-inline: 13px; font-size: 10px; white-space: nowrap; }
+    .app-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; margin-bottom: 13px; }
+    .app-stat { padding: 13px 14px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.025); }
+    .app-stat span { color: #8c8595; font-size: 9px; }
+    .app-stat strong { display: block; margin-top: 5px; font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: -.6px; }
+    .app-stat small { color: #7ee3a8; font-size: 9px; font-weight: 500; letter-spacing: 0; }
+    .app-pane-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 12px; }
+    .app-panel { min-width: 0; padding: 15px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.02); }
+    .app-panel h4 { margin: 0 0 12px; font-size: 11px; }
+    .app-chart { display: flex; height: 112px; align-items: end; gap: 7px; padding: 8px 2px 0; border-bottom: 1px solid rgba(255,255,255,.07); background: repeating-linear-gradient(to bottom, transparent 0, transparent 27px, rgba(255,255,255,.035) 28px); }
+    .app-chart span { flex: 1; height: var(--h); border-radius: 4px 4px 0 0; background: linear-gradient(0deg, rgba(157,78,221,.25), #e05cff); animation: pulse-glow 3s ease-in-out infinite; }
+    .app-chart span:nth-child(2n) { animation-delay: .6s; }
+    .app-mini-list { display: grid; gap: 9px; }
+    .app-mini-game { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #bfb8c8; font-size: 9px; }
+    .app-mini-game span:last-child { color: #7ee3a8; font-size: 8px; }
+    .app-toggle-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .app-toggle-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 74px; padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.022); }
+    .app-toggle-card strong { display: block; font-size: 11px; }
+    .app-toggle-card span { display: block; margin-top: 4px; color: #827c8a; font-size: 9px; }
+    .app-switch { position: relative; width: 32px; height: 18px; flex: 0 0 auto; padding: 0; border: 0; border-radius: 20px; background: #393441; cursor: pointer; transition: background .2s; }
+    .app-switch::after { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #aaa4b0; content: ""; transition: transform .2s, background .2s; }
+    .app-switch[aria-checked="true"] { background: linear-gradient(90deg, #9d4edd, #e036ff); }
+    .app-switch[aria-checked="true"]::after { transform: translateX(14px); background: white; }
+    .app-game-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
+    .app-game-option { display: flex; align-items: center; gap: 10px; min-height: 55px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.02); color: #d3ccd9; text-align: left; cursor: pointer; transition: .2s; }
+    .app-game-option:hover { border-color: rgba(224,54,255,.35); background: rgba(157,78,221,.08); }
+    .app-game-option i { display: grid; width: 29px; height: 29px; flex: 0 0 auto; place-items: center; border-radius: 7px; background: linear-gradient(145deg, #713f9d, #302342); color: #f0d8ff; font-size: 10px; font-style: normal; font-weight: 700; }
+    .app-game-option strong { display: block; font-size: 10px; }
+    .app-game-option small { display: block; margin-top: 2px; color: #817a89; font-size: 8px; }
+    .app-system-list { display: grid; gap: 15px; }
+    .app-system-row { display: grid; grid-template-columns: 90px 1fr 40px; align-items: center; gap: 12px; color: #b9b2c1; font-size: 10px; }
+    .app-system-row .meter { height: 6px; }
     .game-card:nth-child(1) { animation: rise-in .7s .05s both; }
-    .game-card:nth-child(2) { animation: rise-in .7s .16s both; }
-    .game-card:nth-child(3) { animation: rise-in .7s .27s both; }
+    .game-card:nth-child(2) { animation: rise-in .7s .12s both; }
+    .game-card:nth-child(3) { animation: rise-in .7s .19s both; }
+    .game-card:nth-child(4) { animation: rise-in .7s .26s both; }
+    .game-card:nth-child(5) { animation: rise-in .7s .33s both; }
     .download { padding: 0 0 78px; }
     .download-card { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 35px 40px; border: 1px solid rgba(224,54,255,.19); border-radius: 17px; background: radial-gradient(ellipse at 82% 50%, rgba(157,78,221,.16), transparent 42%), linear-gradient(110deg, #17121d, #111018); }
     .download-card::after { position: absolute; top: -100px; right: 17%; width: 200px; height: 200px; border-radius: 50%; background: rgba(224,54,255,.13); filter: blur(65px); content: ""; }
@@ -240,6 +299,10 @@
       .dashboard { transform: none; }
       .game-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .game-card { min-height: 300px; }
+      .app-window { grid-template-columns: 160px minmax(0, 1fr); }
+      .app-sidebar { padding-inline: 10px; }
+      .app-main { padding-inline: 16px; }
+      .app-pane-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 700px) {
       .wrap { width: min(100% - 34px, 540px); }
@@ -254,6 +317,19 @@
       .float-chip.bottom { left: -7px; }
       .section { padding-top: 33px; }
       .section-heading { margin-bottom: 25px; }
+      .app-preview { padding-block: 34px 52px; }
+      .app-window { grid-template-columns: 1fr; }
+      .app-sidebar { padding: 11px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .app-side-brand { margin: 0 0 10px 5px; }
+      .app-side-label, .app-side-bottom { display: none; }
+      .app-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+      .app-nav button { justify-content: center; gap: 4px; min-height: 35px; padding-inline: 4px; font-size: 9px; }
+      .app-nav-icon { width: auto; }
+      .app-main { padding: 16px 13px 18px; }
+      .app-stat-grid { gap: 7px; }
+      .app-stat { padding: 10px; }
+      .app-stat strong { font-size: 17px; }
+      .app-game-list { grid-template-columns: 1fr; }
       .game-grid { grid-template-columns: 1fr; gap: 12px; }
       .game-card { min-height: 290px; }
       .game-profile { grid-template-columns: 1fr; }
@@ -266,6 +342,10 @@
     @media (max-width: 420px) {
       .nav-cta { min-height: 36px; padding-inline: 11px; font-size: 11px; }
       .brand { font-size: 19px; }
+      .app-toggle-grid { grid-template-columns: 1fr; }
+      .app-welcome { align-items: flex-start; flex-direction: column; }
+      .app-topbar { align-items: flex-start; }
+      .app-demo-tag { font-size: 8px; }
       .dash-content { gap: 8px; padding: 9px; }
       .dash-card { padding: 10px; }
       .game-list { grid-template-columns: 1fr; }
@@ -304,7 +384,7 @@
       </div>
       <div class="nav-right">
         <div class="profile"><span class="avatar">L</span><span>Lucho</span></div>
-        <a class="button nav-cta" href="#descargar">Probar dashboard <svg><use href="#icon-arrow"/></svg></a>
+        <a class="button nav-cta" href="#app-preview">Probar dashboard <svg><use href="#icon-arrow"/></svg></a>
       </div>
     </nav>
   </header>
@@ -316,7 +396,7 @@
         <h1>Más rendimiento.<br><span class="gradient-text">Menos input lag.</span></h1>
         <p class="hero-copy">Saca más de cada partida. Lotus aplica ajustes pensados para jugar, libera recursos y te muestra lo que pasa con tu PC en tiempo real.</p>
         <div class="hero-actions">
-          <a class="button" href="#descargar">Descargar para Windows <svg><use href="#icon-download"/></svg></a>
+          <a class="button" href="#app-preview">Probar dashboard <svg><use href="#icon-arrow"/></svg></a>
           <a class="button secondary" href="#tweaks">Explorar tweaks <svg><use href="#icon-arrow"/></svg></a>
         </div>
         <div class="trust-row"><div class="trust-icons"><span>✓</span><span>PC</span><span>⚡</span></div><span><strong>Ligero por diseño.</strong> Tú tienes el control.</span></div>
@@ -367,14 +447,104 @@
             <div class="dash-card games-card">
               <h3>Juegos optimizados <span style="float:right;color:#96909e;font-size:8px;font-weight:500">Ver todos →</span></h3>
               <div class="game-list">
-                <div class="game"><span class="game-art">F</span><div><div class="game-name">Fortnite</div><div class="game-meta">Optimizado · +15% FPS</div></div></div>
                 <div class="game"><span class="game-art">CS</span><div><div class="game-name">Counter-Strike 2</div><div class="game-meta">Optimizado · +18% FPS</div></div></div>
-                <div class="game"><span class="game-art">G5</span><div><div class="game-name">Grand Theft Auto V</div><div class="game-meta">Optimizado · +11% FPS</div></div></div>
+                <div class="game"><span class="game-art">FN</span><div><div class="game-name">Fortnite</div><div class="game-meta">Optimizado · +15% FPS</div></div></div>
+                <div class="game"><span class="game-art">V</span><div><div class="game-name">Valorant</div><div class="game-meta">Optimizado · +16% FPS</div></div></div>
+                <div class="game"><span class="game-art">GTA</span><div><div class="game-name">GTA V</div><div class="game-meta">Optimizado · +11% FPS</div></div></div>
+                <div class="game"><span class="game-art">FM</span><div><div class="game-name">FiveM</div><div class="game-meta">Optimizado · +13% FPS</div></div></div>
               </div>
             </div>
           </div>
         </div>
         <div class="float-chip bottom"><span class="chip-icon" style="color:#83e9b0;background:rgba(110,231,168,.1)">↗</span><span class="chip-text"><span>Latencia de red</span><strong>12 ms <span style="color:#7ee3a8;font-size:9px">−8 ms</span></strong></span></div>
+      </div>
+    </section>
+
+    <section class="app-preview wrap" id="app-preview">
+      <div class="section-heading">
+        <div class="eyebrow">Prueba Lotus en tu navegador</div>
+        <h2>Tu panel de control, <span class="gradient-text">sin instalar nada.</span></h2>
+        <p>Recorre las secciones y prueba los controles. Esta vista es una simulación web con métricas de ejemplo.</p>
+      </div>
+      <div class="app-window">
+        <aside class="app-sidebar">
+          <a class="app-side-brand" href="#inicio"><svg class="brand-mark"><use href="#lotus-icon"/></svg> Lotus</a>
+          <p class="app-side-label">Espacio de trabajo</p>
+          <nav class="app-nav" aria-label="Menú del dashboard">
+            <button type="button" class="active" data-app-view="overview"><span class="app-nav-icon">⌂</span> Resumen</button>
+            <button type="button" data-app-view="tweaks"><span class="app-nav-icon">✳</span> Tweaks</button>
+            <button type="button" data-app-view="games"><span class="app-nav-icon">▣</span> Mis juegos</button>
+            <button type="button" data-app-view="system"><span class="app-nav-icon">◉</span> Sistema</button>
+          </nav>
+          <div class="app-side-bottom">
+            <span>Vista web · Datos simulados</span>
+            <div class="app-side-user"><span class="avatar">L</span><span>Lucho<br><span style="color:#807989">lucho@gmail.com</span></span></div>
+          </div>
+        </aside>
+        <div class="app-main">
+          <div class="app-topbar">
+            <div><h3 id="app-view-title">Resumen</h3><p id="app-view-subtitle">Estado de rendimiento de tu PC</p></div>
+            <span class="app-demo-tag"><i class="dot" style="display:inline-block;width:6px;height:6px;margin-right:5px"></i> MODO DEMO</span>
+          </div>
+          <div class="app-view active" data-app-panel="overview">
+            <div class="app-welcome">
+              <div><h4>¡Todo listo para jugar, Lucho!</h4><p>Tu perfil de rendimiento está preparado. Los datos de este panel son ilustrativos.</p></div>
+              <button class="button" type="button" id="demo-optimize">✦ Optimizar ahora</button>
+            </div>
+            <div class="app-stat-grid">
+              <div class="app-stat"><span>Rendimiento</span><strong id="app-performance">85<small>%</small></strong></div>
+              <div class="app-stat"><span>FPS promedio</span><strong>184 <small>FPS</small></strong></div>
+              <div class="app-stat"><span>Latencia</span><strong>12 <small>ms</small></strong></div>
+            </div>
+            <div class="app-pane-grid">
+              <div class="app-panel"><h4>Rendimiento de la sesión</h4>
+                <div class="app-chart" aria-label="Gráfico de rendimiento simulado">
+                  <span style="--h:48%"></span><span style="--h:62%"></span><span style="--h:55%"></span><span style="--h:73%"></span><span style="--h:66%"></span><span style="--h:85%"></span><span style="--h:70%"></span><span style="--h:92%"></span><span style="--h:78%"></span><span style="--h:96%"></span><span style="--h:83%"></span><span style="--h:100%"></span>
+                </div>
+                <div class="chart-foot"><span>Hace 60 min</span><span>Ahora</span></div>
+              </div>
+              <div class="app-panel"><h4>Juegos listos</h4>
+                <div class="app-mini-list">
+                  <div class="app-mini-game"><span>Counter-Strike 2</span><span>Listo</span></div>
+                  <div class="app-mini-game"><span>Fortnite</span><span>Listo</span></div>
+                  <div class="app-mini-game"><span>Valorant</span><span>Listo</span></div>
+                  <div class="app-mini-game"><span>GTA V · FiveM</span><span>Listo</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="app-view" data-app-panel="tweaks">
+            <div class="app-welcome"><div><h4>Ajusta tu experiencia</h4><p>Activa o desactiva los ajustes de esta demostración.</p></div></div>
+            <div class="app-toggle-grid">
+              <div class="app-toggle-card"><div><strong>Liberar RAM</strong><span>Gestión automática de memoria</span></div><button class="app-switch" type="button" role="switch" aria-checked="true" aria-label="Liberar RAM"></button></div>
+              <div class="app-toggle-card"><div><strong>Optimizar CPU</strong><span>Prioridad para el juego activo</span></div><button class="app-switch" type="button" role="switch" aria-checked="true" aria-label="Optimizar CPU"></button></div>
+              <div class="app-toggle-card"><div><strong>Priorizar juegos</strong><span>Reduce tareas en segundo plano</span></div><button class="app-switch" type="button" role="switch" aria-checked="true" aria-label="Priorizar juegos"></button></div>
+              <div class="app-toggle-card"><div><strong>Latencia de red</strong><span>Ajuste de red simulado</span></div><button class="app-switch" type="button" role="switch" aria-checked="false" aria-label="Latencia de red"></button></div>
+              <div class="app-toggle-card"><div><strong>Modo juego</strong><span>Activa tu perfil al jugar</span></div><button class="app-switch" type="button" role="switch" aria-checked="true" aria-label="Modo juego"></button></div>
+              <div class="app-toggle-card"><div><strong>Telemetría</strong><span>Solo ajustes demostrativos</span></div><button class="app-switch" type="button" role="switch" aria-checked="false" aria-label="Telemetría"></button></div>
+            </div>
+          </div>
+          <div class="app-view" data-app-panel="games">
+            <div class="app-welcome"><div><h4>Tus perfiles de juego</h4><p>Selecciona un perfil para resaltarlo en la biblioteca de abajo.</p></div></div>
+            <div class="app-game-list">
+              <button type="button" class="app-game-option" data-select-game="Counter-Strike 2"><i>CS</i><span><strong>Counter-Strike 2</strong><small>Perfil competitivo</small></span></button>
+              <button type="button" class="app-game-option" data-select-game="Fortnite"><i>FN</i><span><strong>Fortnite</strong><small>Perfil battle royale</small></span></button>
+              <button type="button" class="app-game-option" data-select-game="Valorant"><i>V</i><span><strong>Valorant</strong><small>Perfil táctico</small></span></button>
+              <button type="button" class="app-game-option" data-select-game="Grand Theft Auto V"><i>GTA</i><span><strong>Grand Theft Auto V</strong><small>Perfil mundo abierto</small></span></button>
+              <button type="button" class="app-game-option" data-select-game="FiveM"><i>FM</i><span><strong>FiveM</strong><small>Perfil roleplay</small></span></button>
+            </div>
+          </div>
+          <div class="app-view" data-app-panel="system">
+            <div class="app-welcome"><div><h4>Recursos del sistema</h4><p>Indicadores visuales de ejemplo, no conectados al hardware.</p></div></div>
+            <div class="app-panel app-system-list">
+              <div class="app-system-row"><span>CPU</span><div class="meter"><i style="--w:38%"></i></div><strong>38%</strong></div>
+              <div class="app-system-row"><span>GPU</span><div class="meter"><i style="--w:67%"></i></div><strong>67%</strong></div>
+              <div class="app-system-row"><span>Memoria RAM</span><div class="meter"><i style="--w:42%"></i></div><strong>6.7 GB</strong></div>
+              <div class="app-system-row"><span>Temperatura CPU</span><div class="meter"><i style="--w:48%"></i></div><strong>58 °C</strong></div>
+              <div class="app-system-row"><span>Temperatura GPU</span><div class="meter"><i style="--w:64%"></i></div><strong>67 °C</strong></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -385,14 +555,6 @@
         <p>Selecciona una portada para activar su perfil visual y consultar el rendimiento objetivo.</p>
       </div>
       <div class="game-grid">
-        <button class="game-card tilt-card" type="button" data-name="Fortnite" data-fps="+15% FPS" data-lag="-12 ms" data-profile="Perfil Battle Royale">
-          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=85" alt="Partida competitiva inspirada en Fortnite" loading="lazy">
-          <span class="game-card-content">
-            <span class="game-badge"><i></i> Perfil optimizado</span>
-            <h3>Fortnite</h3>
-            <span class="game-card-meta"><span>Battle royale · 240 FPS objetivo</span><strong>+15%</strong></span>
-          </span>
-        </button>
         <button class="game-card tilt-card" type="button" data-name="Counter-Strike 2" data-fps="+18% FPS" data-lag="-9 ms" data-profile="Perfil Competitivo">
           <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/library_600x900.jpg" alt="Portada de Counter-Strike 2" loading="lazy">
           <span class="game-card-content">
@@ -401,12 +563,36 @@
             <span class="game-card-meta"><span>Competitivo · 300+ FPS</span><strong>+18%</strong></span>
           </span>
         </button>
+        <button class="game-card tilt-card" type="button" data-name="Fortnite" data-fps="+15% FPS" data-lag="-12 ms" data-profile="Perfil Battle Royale">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=85" alt="Imagen de ambiente competitivo para Fortnite" loading="lazy">
+          <span class="game-card-content">
+            <span class="game-badge"><i></i> Perfil optimizado</span>
+            <h3>Fortnite</h3>
+            <span class="game-card-meta"><span>Battle royale · 240 FPS objetivo</span><strong>+15%</strong></span>
+          </span>
+        </button>
+        <button class="game-card tilt-card" type="button" data-name="Valorant" data-fps="+16% FPS" data-lag="-10 ms" data-profile="Perfil Táctico">
+          <img src="https://media.valorant-api.com/agents/9f0d8ba9-4140-b941-57d3-a7ad57c6b417/fullportrait.png" alt="Agente de Valorant" loading="lazy">
+          <span class="game-card-content">
+            <span class="game-badge"><i></i> Perfil optimizado</span>
+            <h3>Valorant</h3>
+            <span class="game-card-meta"><span>Táctico · 240 FPS objetivo</span><strong>+16%</strong></span>
+          </span>
+        </button>
         <button class="game-card tilt-card" type="button" data-name="Grand Theft Auto V" data-fps="+11% FPS" data-lag="-8 ms" data-profile="Perfil Mundo Abierto">
           <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/library_600x900.jpg" alt="Portada de Grand Theft Auto V" loading="lazy">
           <span class="game-card-content">
             <span class="game-badge"><i></i> Perfil optimizado</span>
             <h3>Grand Theft Auto V</h3>
             <span class="game-card-meta"><span>Mundo abierto · 144 FPS</span><strong>+11%</strong></span>
+          </span>
+        </button>
+        <button class="game-card tilt-card" type="button" data-name="FiveM" data-fps="+13% FPS" data-lag="-8 ms" data-profile="Perfil Roleplay">
+          <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=900&q=85" alt="Configuración de juego para FiveM" loading="lazy">
+          <span class="game-card-content">
+            <span class="game-badge"><i></i> Perfil optimizado</span>
+            <h3>FiveM</h3>
+            <span class="game-card-meta"><span>Roleplay · 144 FPS objetivo</span><strong>+13%</strong></span>
           </span>
         </button>
       </div>
@@ -455,7 +641,7 @@
     <section class="download wrap" id="descargar">
       <div class="download-card">
         <div><h2>Listo para jugar <span class="gradient-text">en tu mejor nivel?</span></h2><p>Lotus está hecho para que tu PC trabaje contigo, no en tu contra.</p></div>
-        <a class="button" href="mailto:lucho@gmail.com?subject=Quiero%20probar%20Lotus"><svg><use href="#icon-download"/></svg> Quiero probar Lotus</a>
+        <a class="button" href="mailto:lucho@gmail.com?subject=Consulta%20sobre%20Lotus"><svg><use href="#icon-arrow"/></svg> Contactar a Lucho</a>
       </div>
     </section>
   </main>
@@ -539,7 +725,19 @@
         });
       }
 
-      document.querySelectorAll(".tilt-card").forEach((card) => {
+      const gameCards = [...document.querySelectorAll(".tilt-card")];
+      function selectGame(card) {
+        gameCards.forEach((item) => item.classList.toggle("selected", item === card));
+        document.getElementById("profile-name").textContent = `${card.dataset.name} seleccionado`;
+        document.getElementById("profile-copy").textContent = `${card.dataset.profile} listo · Prioridad de CPU y latencia ajustada.`;
+        document.getElementById("profile-fps").textContent = card.dataset.fps;
+        document.getElementById("profile-lag").textContent = card.dataset.lag;
+        const profile = document.getElementById("game-profile");
+        profile.classList.remove("visible");
+        requestAnimationFrame(() => profile.classList.add("visible"));
+      }
+
+      gameCards.forEach((card) => {
         card.addEventListener("pointermove", (event) => {
           const rect = card.getBoundingClientRect();
           const x = (event.clientX - rect.left) / rect.width;
@@ -556,15 +754,49 @@
           card.style.setProperty("--my", "50%");
         });
         card.addEventListener("click", () => {
-          document.querySelectorAll(".tilt-card").forEach((item) => item.style.borderColor = "");
-          card.style.borderColor = "rgba(224,54,255,.72)";
-          document.getElementById("profile-name").textContent = `${card.dataset.name} seleccionado`;
-          document.getElementById("profile-copy").textContent = `${card.dataset.profile} listo · Prioridad de CPU y latencia ajustada.`;
-          document.getElementById("profile-fps").textContent = card.dataset.fps;
-          document.getElementById("profile-lag").textContent = card.dataset.lag;
-          const profile = document.getElementById("game-profile");
-          profile.classList.remove("visible");
-          requestAnimationFrame(() => profile.classList.add("visible"));
+          selectGame(card);
+          showToast(`Perfil seleccionado: ${card.dataset.name}`);
+        });
+      });
+
+      const appViews = [...document.querySelectorAll("[data-app-view]")];
+      const appPanels = [...document.querySelectorAll("[data-app-panel]")];
+      const appLabels = {
+        overview: ["Resumen", "Estado de rendimiento de tu PC"],
+        tweaks: ["Tweaks", "Ajustes simulados para tu sesión"],
+        games: ["Mis juegos", "Perfiles de juego disponibles"],
+        system: ["Sistema", "Uso de recursos · datos de demostración"]
+      };
+      appViews.forEach((button) => button.addEventListener("click", () => {
+        const view = button.dataset.appView;
+        appViews.forEach((item) => item.classList.toggle("active", item === button));
+        appPanels.forEach((panel) => panel.classList.toggle("active", panel.dataset.appPanel === view));
+        document.getElementById("app-view-title").textContent = appLabels[view][0];
+        document.getElementById("app-view-subtitle").textContent = appLabels[view][1];
+      }));
+
+      const appSwitches = [...document.querySelectorAll(".app-switch")];
+      const performanceScore = document.getElementById("app-performance");
+      appSwitches.forEach((item) => item.addEventListener("click", () => {
+        const enabled = item.getAttribute("aria-checked") !== "true";
+        item.setAttribute("aria-checked", String(enabled));
+        const active = appSwitches.filter((toggle) => toggle.getAttribute("aria-checked") === "true").length;
+        performanceScore.innerHTML = `${Math.round(55 + active / appSwitches.length * 45)}<small>%</small>`;
+        showToast(`${item.getAttribute("aria-label")}: ${enabled ? "activado" : "desactivado"} · Simulación`);
+      }));
+
+      document.getElementById("demo-optimize").addEventListener("click", (event) => {
+        appSwitches.forEach((item) => item.setAttribute("aria-checked", "true"));
+        performanceScore.innerHTML = "100<small>%</small>";
+        event.currentTarget.textContent = "✓ Optimización simulada";
+        showToast("Demo completada · No se modificó tu PC");
+      });
+
+      document.querySelectorAll("[data-select-game]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const card = gameCards.find((item) => item.dataset.name === button.dataset.selectGame);
+          if (!card) return;
+          selectGame(card);
           showToast(`Perfil seleccionado: ${card.dataset.name}`);
         });
       });
